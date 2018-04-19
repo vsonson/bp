@@ -55,7 +55,7 @@ spring:
             hibernate.cache.region.factory_class: io.github.jhipster.config.jcache.NoDefaultJCacheRegionFactory
     mail:
         host: email-smtp.us-east-1.amazonaws.com
-        port: 25
+        port: 465
         username: AKIAJ7YIJ47YZJLRXWFQ
         password: AlTV3P8RdnBY/XDjpgjjB0fTpYc2rIisZqdkzQ+OGvA6
         protocol: smtps
