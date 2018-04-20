@@ -20,13 +20,22 @@
     "buildTool": "gradle",
     "enableSocialSignIn": true,
     "enableSwaggerCodegen": false,
-    "jwtSecretKey": "d115f12ad0f28bfe33683f2fffac0d722c46688f",
+    "jwtSecretKey": "750d7faa428fa80906f1dc875557381d1ed63aae",
     "clientFramework": "angularX",
     "useSass": false,
     "clientPackageManager": "yarn",
     "applicationType": "monolith",
     "testFrameworks": [],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "enableTranslation": false,
+    "appsFolders": [
+      "bp"
+    ],
+    "directoryPath": "../",
+    "monitoring": "elk",
+    "consoleOptions": [
+      "curator"
+    ],
+    "enableHibernateCache": false
   }
 }
