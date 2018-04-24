@@ -1,0 +1,87 @@
+<div>
+    <h2>
+        <span>Metric Histories</span>
+        <button class="btn btn-primary float-right jh-create-entity create-metric-history" [routerLink]="['/', { outlets: { popup: ['metric-history-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Metric History
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="metricHistories">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="date"><span>Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="metricValue"><span>Metric Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="trackMetric.id"><span>Track Metric</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="metricQuestion.id"><span>Metric Question</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userInfo.id"><span>User Info</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let metricHistory of metricHistories ;trackBy: trackId">
+                <td><a [routerLink]="['../metric-history', metricHistory.id ]">{{metricHistory.id}}</a></td>
+                <td>{{metricHistory.date | date:'mediumDate'}}</td>
+                <td>{{metricHistory.metricValue}}</td>
+                <td>
+                    <div *ngIf="metricHistory.trackMetric">
+                        <a [routerLink]="['../track-metric', metricHistory.trackMetric?.id ]" >{{metricHistory.trackMetric?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="metricHistory.metricQuestion">
+                        <a [routerLink]="['../track-metric-question', metricHistory.metricQuestion?.id ]" >{{metricHistory.metricQuestion?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="metricHistory.userInfo">
+                        <a [routerLink]="['../user-info', metricHistory.userInfo?.id ]" >{{metricHistory.userInfo?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../metric-history', metricHistory.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'metric-history/'+ metricHistory.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'metric-history/'+ metricHistory.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="metricHistories && metricHistories.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

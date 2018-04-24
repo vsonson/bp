@@ -1,0 +1,67 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMetricHistoryLabel">Create or edit a Metric History</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!metricHistory.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="metricHistory.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_date">Date</label>
+            <div class="input-group">
+                <input id="field_date" type="text" class="form-control" name="date" ngbDatepicker  #dateDp="ngbDatepicker" [(ngModel)]="metricHistory.date"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_metricValue">Metric Value</label>
+            <input type="text" class="form-control" name="metricValue" id="field_metricValue"
+                [(ngModel)]="metricHistory.metricValue" required/>
+            <div [hidden]="!(editForm.controls.metricValue?.dirty && editForm.controls.metricValue?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.metricValue?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_trackMetric">Track Metric</label>
+            <select class="form-control" id="field_trackMetric" name="trackMetric" [(ngModel)]="metricHistory.trackMetric">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="trackMetricOption.id === metricHistory.trackMetric?.id ? metricHistory.trackMetric : trackMetricOption" *ngFor="let trackMetricOption of trackmetrics; trackBy: trackTrackMetricById">{{trackMetricOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_metricQuestion">Metric Question</label>
+            <select class="form-control" id="field_metricQuestion" name="metricQuestion" [(ngModel)]="metricHistory.metricQuestion">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="trackMetricQuestionOption.id === metricHistory.metricQuestion?.id ? metricHistory.metricQuestion : trackMetricQuestionOption" *ngFor="let trackMetricQuestionOption of metricquestions; trackBy: trackTrackMetricQuestionById">{{trackMetricQuestionOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_userInfo">User Info</label>
+            <select class="form-control" id="field_userInfo" name="userInfo" [(ngModel)]="metricHistory.userInfo" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userInfoOption.id === metricHistory.userInfo?.id ? metricHistory.userInfo : userInfoOption" *ngFor="let userInfoOption of userinfos; trackBy: trackUserInfoById">{{userInfoOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

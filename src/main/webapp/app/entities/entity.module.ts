@@ -6,6 +6,7 @@ import { BalancepositionDataPointModule } from './data-point/data-point.module';
 import { BalancepositionTrackMetricModule } from './track-metric/track-metric.module';
 import { BalancepositionKeyPairModule } from './key-pair/key-pair.module';
 import { BalancepositionTrackMetricQuestionModule } from './track-metric-question/track-metric-question.module';
+import { BalancepositionMetricHistoryModule } from './metric-history/metric-history.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -16,6 +17,7 @@ import { BalancepositionTrackMetricQuestionModule } from './track-metric-questio
         BalancepositionTrackMetricModule,
         BalancepositionKeyPairModule,
         BalancepositionTrackMetricQuestionModule,
+        BalancepositionMetricHistoryModule,
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

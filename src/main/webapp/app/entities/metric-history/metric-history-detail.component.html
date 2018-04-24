@@ -1,0 +1,48 @@
+
+<div *ngIf="metricHistory">
+    <h2><span>Metric History</span> {{metricHistory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{metricHistory.date | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Metric Value</span></dt>
+        <dd>
+            <span>{{metricHistory.metricValue}}</span>
+        </dd>
+        <dt><span>Track Metric</span></dt>
+        <dd>
+            <div *ngIf="metricHistory.trackMetric">
+                <a [routerLink]="['/track-metric', metricHistory.trackMetric?.id]">{{metricHistory.trackMetric?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>Metric Question</span></dt>
+        <dd>
+            <div *ngIf="metricHistory.metricQuestion">
+                <a [routerLink]="['/track-metric-question', metricHistory.metricQuestion?.id]">{{metricHistory.metricQuestion?.id}}</a>
+            </div>
+        </dd>
+        <dt><span>User Info</span></dt>
+        <dd>
+            <div *ngIf="metricHistory.userInfo">
+                <a [routerLink]="['/user-info', metricHistory.userInfo?.id]">{{metricHistory.userInfo?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'metric-history/'+ metricHistory.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
