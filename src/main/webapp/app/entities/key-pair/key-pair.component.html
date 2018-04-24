@@ -1,0 +1,77 @@
+<div>
+    <h2>
+        <span>Key Pairs</span>
+        <button class="btn btn-primary float-right jh-create-entity create-key-pair" [routerLink]="['/', { outlets: { popup: ['key-pair-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Key Pair
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="keyPairs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="pairType"><span>Pair Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="keyName"><span>Key Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="keyValue"><span>Key Value</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="trackMetricQuestion.id"><span>Track Metric Question</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let keyPair of keyPairs ;trackBy: trackId">
+                <td><a [routerLink]="['../key-pair', keyPair.id ]">{{keyPair.id}}</a></td>
+                <td>{{keyPair.pairType}}</td>
+                <td>{{keyPair.keyName}}</td>
+                <td>{{keyPair.keyValue}}</td>
+                <td>
+                    <div *ngIf="keyPair.trackMetricQuestion">
+                        <a [routerLink]="['../track-metric-question', keyPair.trackMetricQuestion?.id ]" >{{keyPair.trackMetricQuestion?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../key-pair', keyPair.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'key-pair/'+ keyPair.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'key-pair/'+ keyPair.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="keyPairs && keyPairs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

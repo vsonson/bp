@@ -1,0 +1,40 @@
+
+<div *ngIf="keyPair">
+    <h2><span>Key Pair</span> {{keyPair.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Pair Type</span></dt>
+        <dd>
+            <span>{{keyPair.pairType}}</span>
+        </dd>
+        <dt><span>Key Name</span></dt>
+        <dd>
+            <span>{{keyPair.keyName}}</span>
+        </dd>
+        <dt><span>Key Value</span></dt>
+        <dd>
+            <span>{{keyPair.keyValue}}</span>
+        </dd>
+        <dt><span>Track Metric Question</span></dt>
+        <dd>
+            <div *ngIf="keyPair.trackMetricQuestion">
+                <a [routerLink]="['/track-metric-question', keyPair.trackMetricQuestion?.id]">{{keyPair.trackMetricQuestion?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'key-pair/'+ keyPair.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

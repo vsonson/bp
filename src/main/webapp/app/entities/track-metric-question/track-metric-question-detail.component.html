@@ -1,0 +1,36 @@
+
+<div *ngIf="trackMetricQuestion">
+    <h2><span>Track Metric Question</span> {{trackMetricQuestion.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Question</span></dt>
+        <dd>
+            <span>{{trackMetricQuestion.question}}</span>
+        </dd>
+        <dt><span>Is Mandatory</span></dt>
+        <dd>
+            <span>{{trackMetricQuestion.isMandatory}}</span>
+        </dd>
+        <dt><span>Track Metric</span></dt>
+        <dd>
+            <div *ngIf="trackMetricQuestion.trackMetric">
+                <a [routerLink]="['/track-metric', trackMetricQuestion.trackMetric?.id]">{{trackMetricQuestion.trackMetric?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'track-metric-question/'+ trackMetricQuestion.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

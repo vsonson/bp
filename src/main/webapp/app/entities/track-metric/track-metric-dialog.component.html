@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTrackMetricLabel">Create or edit a Track Metric</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!trackMetric.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="trackMetric.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="trackMetric.name" required/>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="trackMetric.description" required/>
+            <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.description?.errors?.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_trackIcon">Track Icon</label>
+            <input type="text" class="form-control" name="trackIcon" id="field_trackIcon"
+                [(ngModel)]="trackMetric.trackIcon" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_infoBubble">Info Bubble</label>
+            <div>
+                <div *ngIf="trackMetric.infoBubble" class="form-text text-danger clearfix">
+                    <a class="pull-left" (click)="openFile(trackMetric.infoBubbleContentType, trackMetric.infoBubble)">open</a><br>
+                    <span class="pull-left">{{trackMetric.infoBubbleContentType}}, {{byteSize(trackMetric.infoBubble)}}</span>
+                    <button type="button" (click)="trackMetric.infoBubble=null;trackMetric.infoBubbleContentType=null;"
+                            class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_infoBubble" (change)="setFileData($event, trackMetric, 'infoBubble', false)"/>
+            </div>
+            <input type="hidden" class="form-control" name="infoBubble" id="field_infoBubble"
+                [(ngModel)]="trackMetric.infoBubble" />
+            <input type="hidden" class="form-control" name="infoBubbleContentType" id="field_infoBubbleContentType"
+                [(ngModel)]="trackMetric.infoBubbleContentType" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
