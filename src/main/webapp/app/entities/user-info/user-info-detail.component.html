@@ -1,0 +1,72 @@
+
+<div *ngIf="userInfo">
+    <h2><span>User Info</span> {{userInfo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Userstatus</span></dt>
+        <dd>
+            <span>{{userInfo.userstatus}}</span>
+        </dd>
+        <dt><span>User Type</span></dt>
+        <dd>
+            <span>{{userInfo.userType}}</span>
+        </dd>
+        <dt><span>Year Of Birth</span></dt>
+        <dd>
+            <span>{{userInfo.yearOfBirth}}</span>
+        </dd>
+        <dt><span>Gender</span></dt>
+        <dd>
+            <span>{{userInfo.gender}}</span>
+        </dd>
+        <dt><span>Primary Sport</span></dt>
+        <dd>
+            <span>{{userInfo.primarySport}}</span>
+        </dd>
+        <dt><span>Education Level</span></dt>
+        <dd>
+            <span>{{userInfo.educationLevel}}</span>
+        </dd>
+        <dt><span>Country Code</span></dt>
+        <dd>
+            <span>{{userInfo.countryCode}}</span>
+        </dd>
+        <dt><span>State Code</span></dt>
+        <dd>
+            <span>{{userInfo.stateCode}}</span>
+        </dd>
+        <dt><span>Last Quote Date</span></dt>
+        <dd>
+            <span>{{userInfo.lastQuoteDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Last Quote Id</span></dt>
+        <dd>
+            <span>{{userInfo.lastQuoteId}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{userInfo.user?.email}}
+        </dd>
+        <dt><span>Quote Of The Day</span></dt>
+        <dd>
+            <span *ngFor="let quoteOfTheDay of userInfo.quoteOfTheDays; let last = last">
+                <a [routerLink]="['/quote-of-the-day', quoteOfTheDay?.id ]">{{quoteOfTheDay.id}}</a>{{last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'user-info/'+ userInfo.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

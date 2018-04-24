@@ -1,0 +1,100 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myUserInfoLabel">Create or edit a User Info</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!userInfo.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="userInfo.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_userstatus">Userstatus</label>
+            <select class="form-control" name="userstatus" [(ngModel)]="userInfo.userstatus" id="field_userstatus" >
+                <option value="ACTIVE">ACTIVE</option>
+                <option value="INVITED">INVITED</option>
+                <option value="DISABLED">DISABLED</option>
+                <option value="ACTIVEPAID">ACTIVEPAID</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_userType">User Type</label>
+            <select class="form-control" name="userType" [(ngModel)]="userInfo.userType" id="field_userType" >
+                <option value="STUDENTATHLETE">STUDENTATHLETE</option>
+                <option value="ADMIN">ADMIN</option>
+                <option value="SUPPORTER">SUPPORTER</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_yearOfBirth">Year Of Birth</label>
+            <input type="text" class="form-control" name="yearOfBirth" id="field_yearOfBirth"
+                [(ngModel)]="userInfo.yearOfBirth" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_gender">Gender</label>
+            <input type="text" class="form-control" name="gender" id="field_gender"
+                [(ngModel)]="userInfo.gender" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_primarySport">Primary Sport</label>
+            <input type="text" class="form-control" name="primarySport" id="field_primarySport"
+                [(ngModel)]="userInfo.primarySport" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_educationLevel">Education Level</label>
+            <input type="text" class="form-control" name="educationLevel" id="field_educationLevel"
+                [(ngModel)]="userInfo.educationLevel" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_countryCode">Country Code</label>
+            <input type="text" class="form-control" name="countryCode" id="field_countryCode"
+                [(ngModel)]="userInfo.countryCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_stateCode">State Code</label>
+            <input type="text" class="form-control" name="stateCode" id="field_stateCode"
+                [(ngModel)]="userInfo.stateCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastQuoteDate">Last Quote Date</label>
+            <div class="input-group">
+                <input id="field_lastQuoteDate" type="text" class="form-control" name="lastQuoteDate" ngbDatepicker  #lastQuoteDateDp="ngbDatepicker" [(ngModel)]="userInfo.lastQuoteDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="lastQuoteDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastQuoteId">Last Quote Id</label>
+            <input type="number" class="form-control" name="lastQuoteId" id="field_lastQuoteId"
+                [(ngModel)]="userInfo.lastQuoteId" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="userInfo.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === userInfo.user?.id ? userInfo.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.email}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_quoteOfTheDay">Quote Of The Day</label>
+            <select class="form-control" id="field_quoteOfTheDay" multiple name="quoteOfTheDay" [(ngModel)]="userInfo.quoteOfTheDays">
+                <option [ngValue]="getSelected(userInfo.quoteOfTheDays, quoteOfTheDayOption)" *ngFor="let quoteOfTheDayOption of quoteofthedays; trackBy: trackQuoteOfTheDayById">{{quoteOfTheDayOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

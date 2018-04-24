@@ -1,0 +1,66 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "email",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userInfo"
+        },
+        {
+            "relationshipName": "quoteOfTheDay",
+            "otherEntityName": "quoteOfTheDay",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "userInfo"
+        }
+      ],
+    "fields": [
+        {
+            "fieldName": "userstatus",
+            "fieldType": "UserStatus",
+            "fieldValues": "ACTIVE,INVITED,DISABLED,ACTIVEPAID"
+        },
+        {
+            "fieldName": "yearOfBirth",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "gender",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "primarySport",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "educationLevel",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "countryCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "stateCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastQuoteDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "lastQuoteId",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20180419020930",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "user_info",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

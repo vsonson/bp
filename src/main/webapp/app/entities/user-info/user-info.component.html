@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span>User Infos</span>
+        <button class="btn btn-primary float-right jh-create-entity create-user-info" [routerLink]="['/', { outlets: { popup: ['user-info-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new User Info
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="userInfos">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userstatus"><span>Userstatus</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="userType"><span>User Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="yearOfBirth"><span>Year Of Birth</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="gender"><span>Gender</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="primarySport"><span>Primary Sport</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="educationLevel"><span>Education Level</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="countryCode"><span>Country Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="stateCode"><span>State Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastQuoteDate"><span>Last Quote Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastQuoteId"><span>Last Quote Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="user.email"><span>User</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let userInfo of userInfos ;trackBy: trackId">
+                <td><a [routerLink]="['../user-info', userInfo.id ]">{{userInfo.id}}</a></td>
+                <td>{{userInfo.userstatus}}</td>
+                <td>{{userInfo.userType}}</td>
+                <td>{{userInfo.yearOfBirth}}</td>
+                <td>{{userInfo.gender}}</td>
+                <td>{{userInfo.primarySport}}</td>
+                <td>{{userInfo.educationLevel}}</td>
+                <td>{{userInfo.countryCode}}</td>
+                <td>{{userInfo.stateCode}}</td>
+                <td>{{userInfo.lastQuoteDate | date:'mediumDate'}}</td>
+                <td>{{userInfo.lastQuoteId}}</td>
+                <td>
+                    {{userInfo.user?.email}}
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../user-info', userInfo.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'user-info/'+ userInfo.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'user-info/'+ userInfo.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="userInfos && userInfos.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

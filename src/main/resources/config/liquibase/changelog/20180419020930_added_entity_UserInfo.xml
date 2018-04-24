@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity UserInfo.
+    -->
+    <changeSet id="20180419020930-1" author="jhipster">
+        <createTable tableName="user_info">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="userstatus" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="year_of_birth" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="gender" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="primary_sport" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="education_level" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="country_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="state_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_quote_date" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="last_quote_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints unique="true" nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+        <createTable tableName="user_info_quote_of_the_day">
+            <column name="quote_of_the_days_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_infos_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="user_infos_id, quote_of_the_days_id" tableName="user_info_quote_of_the_day"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>
