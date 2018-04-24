@@ -25,6 +25,9 @@ public class DataPoint implements Serializable {
     @Column(name = "jhi_order")
     private Integer order;
 
+    @Column(name = "tracking")
+    private Boolean tracking;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -59,6 +62,19 @@ public class DataPoint implements Serializable {
     public void setOrder(Integer order) {
         this.order = order;
     }
+
+    public Boolean isTracking() {
+        return tracking;
+    }
+
+    public DataPoint tracking(Boolean tracking) {
+        this.tracking = tracking;
+        return this;
+    }
+
+    public void setTracking(Boolean tracking) {
+        this.tracking = tracking;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -87,6 +103,7 @@ public class DataPoint implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", order=" + getOrder() +
+            ", tracking='" + isTracking() + "'" +
             "}";
     }
 }

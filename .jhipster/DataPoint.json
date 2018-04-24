@@ -9,6 +9,10 @@
         {
             "fieldName": "order",
             "fieldType": "Integer"
+        },
+        {
+            "fieldName": "tracking",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "20171221021853",

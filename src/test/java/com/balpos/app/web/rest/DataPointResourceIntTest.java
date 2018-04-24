@@ -45,6 +45,9 @@ public class DataPointResourceIntTest {
     private static final Integer DEFAULT_ORDER = 1;
     private static final Integer UPDATED_ORDER = 2;
 
+    private static final Boolean DEFAULT_TRACKING = false;
+    private static final Boolean UPDATED_TRACKING = true;
+
     @Autowired
     private DataPointRepository dataPointRepository;
 
@@ -87,7 +90,8 @@ public class DataPointResourceIntTest {
     public static DataPoint createEntity(EntityManager em) {
         DataPoint dataPoint = new DataPoint()
             .name(DEFAULT_NAME)
-            .order(DEFAULT_ORDER);
+            .order(DEFAULT_ORDER)
+            .tracking(DEFAULT_TRACKING);
         return dataPoint;
     }
 
@@ -113,6 +117,7 @@ public class DataPointResourceIntTest {
         DataPoint testDataPoint = dataPointList.get(dataPointList.size() - 1);
         assertThat(testDataPoint.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDataPoint.getOrder()).isEqualTo(DEFAULT_ORDER);
+        assertThat(testDataPoint.isTracking()).isEqualTo(DEFAULT_TRACKING);
     }
 
     @Test
@@ -146,7 +151,8 @@ public class DataPointResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(dataPoint.getId().intValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)));
+            .andExpect(jsonPath("$.[*].order").value(hasItem(DEFAULT_ORDER)))
+            .andExpect(jsonPath("$.[*].tracking").value(hasItem(DEFAULT_TRACKING.booleanValue())));
     }
 
     @Test
@@ -161,7 +167,8 @@ public class DataPointResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(dataPoint.getId().intValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER));
+            .andExpect(jsonPath("$.order").value(DEFAULT_ORDER))
+            .andExpect(jsonPath("$.tracking").value(DEFAULT_TRACKING.booleanValue()));
     }
 
     @Test
@@ -186,7 +193,8 @@ public class DataPointResourceIntTest {
         em.detach(updatedDataPoint);
         updatedDataPoint
             .name(UPDATED_NAME)
-            .order(UPDATED_ORDER);
+            .order(UPDATED_ORDER)
+            .tracking(UPDATED_TRACKING);
 
         restDataPointMockMvc.perform(put("/api/data-points")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -199,6 +207,7 @@ public class DataPointResourceIntTest {
         DataPoint testDataPoint = dataPointList.get(dataPointList.size() - 1);
         assertThat(testDataPoint.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDataPoint.getOrder()).isEqualTo(UPDATED_ORDER);
+        assertThat(testDataPoint.isTracking()).isEqualTo(UPDATED_TRACKING);
     }
 
     @Test
